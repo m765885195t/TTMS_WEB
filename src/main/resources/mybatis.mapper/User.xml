@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.UserMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="UserType" type="cn.motian.model.User">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="unionId"/>
+        <result property="name" column="name"/>
+        <result property="pass" column="pass"/>
+        <result property="identity" column="identity"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        unionId, name, pass, identity
+    </sql>
+
+    <insert id="insert" parameterType="cn.motian.model.User">
+        INSERT into user (<include refid="mappingColumns"></include>, create_time)
+        VALUES (#{unionId}, #{name}, #{pass}, #{identity}, now())
+    </insert>
+
+    <update id="update" parameterType="cn.motian.model.User">
+        UPDATE user
+        SET name = #{name}, pass = #{pass}
+        WHERE  unionId = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="UserType">
+        SELECT <include refid="mappingColumns"></include>
+        FROM weixin_usermeta
+        WHERE unionId in (${unionId})
+    </select>
+
+</mapper>
