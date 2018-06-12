@@ -19,20 +19,26 @@ war {
 
 // 所需的依赖
 dependencies {
+    def springVersion = "4.2.8.RELEASE"
+
     //sping
-    compile ('org.springframework:spring-webmvc:5.0.6.RELEASE')
-    compile group: 'org.springframework', name: 'spring-web', version: '5.0.6.RELEASE'
+    compile 'org.springframework:spring-webmvc:5.0.6.RELEASE'
+    compile 'org.springframework:spring-web:5.0.6.RELEASE'
     compile 'org.springframework:spring-core:5.0.5.RELEASE'
     compile 'org.springframework:spring-context:5.0.5.RELEASE'
+    compile 'org.springframework:spring-tx:5.0.5.RELEASE'
+
+
+
 
     //servlet依赖
     compile "javax:javaee-api:7.0"
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile 'javax.servlet:javax.servlet-api:4.0.1'
 
     //MyBatis
-    compile "org.mybatis:mybatis:3.0.5"
+    compile "org.mybatis:mybatis:3.2.8"
     //mybatis spring 插件
-    compile "org.mybatis:mybatis-spring:1.0.1"
+    compile "org.mybatis:mybatis-spring:1.2.2"
 
     //数据库驱动
     compile "mysql:mysql-connector-java:5.1.23"

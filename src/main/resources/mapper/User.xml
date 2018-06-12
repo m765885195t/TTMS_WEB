@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.UserMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="UserType" type="cn.motian.model.User">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="user_id"/>
+        <result property="name" column="user_name"/>
+        <result property="pass" column="user_pass"/>
+        <result property="identity" column="user_identity"/>
+        <result property="teL" column="user_tel_num"/>
+        <result property="addr" column="user_addr"/>
+        <result property="email" column="user_email"/>
+        <result property="updateTime" column="user_update_time"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        user_name, user_pass, user_identity,user_tel_num,user_addr,user_email,user_update_time
+    </sql>
+
+    <insert id="insert" parameterType="cn.motian.model.User">
+        INSERT into user (<include refid="mappingColumns"></include>, user_create_time)
+        VALUES (#{name}, #{pass}, #{identity}, #{teL},#{addr},#{email},#{updateTime},now())
+    </insert>
+
+    <update id="update" parameterType="cn.motian.model.User">
+        UPDATE user
+        set user_name=#{name},
+        user_pass =#{pass},
+        user_tel_num=#{teL},
+        user_addr=#{addr},
+        user_email=#{email},
+        user_update_time =#{updateTime}
+        WHERE  user_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="UserType">
+        SELECT
+        <include refid="mappingColumns"></include>
+        FROM user
+        WHERE user_id = #{unionId}
+    </select>
+
+</mapper>

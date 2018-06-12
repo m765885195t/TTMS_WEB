@@ -6,10 +6,7 @@ import cn.motian.model.User;
 import cn.motian.serveice.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -25,30 +22,47 @@ public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
 
-    @RequestMapping(params = "method=addUser")
+    @RequestMapping(params = "method=addUser",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addUser(@RequestParam String name,
-                                       @RequestParam(required = false, defaultValue = "666666") String pass,
-                                       @RequestParam String identity) throws TTMSException {
-        User user = new User(name, pass, identity);
+    public Map<String, Object> addUser(
+            @RequestParam String name,
+            @RequestParam(required = false, defaultValue = "666666") String pass,
+            @RequestParam String identity,
+            @RequestParam(required = false) String teL,
+            @RequestParam(required = false) String addr,
+            @RequestParam(required = false) String email
+            ) throws TTMSException {
+        User user = new User(name, pass, identity,teL,addr,email);
         Map<String, Object> rs = new HashMap<>();
         rs.put("result", administratorService.addUser(user) ? SUCCEED : FAIL);
         return rs;
     }
 
-    @RequestMapping(params = "method=updateUser")
+    @RequestMapping(params = "method=updateUser",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> updateUser(@RequestParam String name,
-                                          @RequestParam String pass,
-                                          @RequestParam String unionId) throws TTMSException {
+    public Map<String, Object> updateUser(
+            @RequestParam String unionId,
+            @RequestParam String name,
+            @RequestParam(required = false, defaultValue = "666666") String pass,
+            @RequestParam(required = false) String teL,
+            @RequestParam(required = false) String addr,
+            @RequestParam(required = false) String email
+    ) throws TTMSException {
         Map<String, Object> rs = new HashMap<>();
-        User user = administratorService.updateUser(unionId, name, pass);
-        rs.put("result", user == null ? SUCCEED : FAIL);
+        User user = administratorService.getByUnionId(unionId);
+        user.setName(name);
+        user.setPass(pass);
+        user.setTeL(teL);
+        user.setAddr(addr);
+        user.setEmail(email);
+        user.setUpdateTime(System.currentTimeMillis());
+
+        rs.put("result", administratorService.updateUser(user) ? SUCCEED : FAIL);
         return rs;
     }
 
 
-    @RequestMapping(params = "method=getUserByUnionId")
+    @RequestMapping(params = "method=getUserByUnionId",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getByUnionId(
             @RequestParam String unionId) throws TTMSException {
