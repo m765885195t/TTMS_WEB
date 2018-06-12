@@ -20,9 +20,10 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     public boolean updateUser(User user) {
-        boolean s = userMapper.update(user);
-        System.out.println(userMapper.update(user)+"daasd");
-        return s;
+
+
+
+        return userMapper.update(user);
     }
 
     public User getByUnionId(String unionId) throws TTMSException {

@@ -42,21 +42,24 @@ public class AdministratorController {
     @ResponseBody
     public Map<String, Object> updateUser(
             @RequestParam String unionId,
-            @RequestParam String name,
-            @RequestParam(required = false, defaultValue = "666666") String pass,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String pass,
             @RequestParam(required = false) String teL,
             @RequestParam(required = false) String addr,
             @RequestParam(required = false) String email
     ) throws TTMSException {
-        Map<String, Object> rs = new HashMap<>();
-        User user = administratorService.getByUnionId(unionId);
+//        User user = administratorService.getByUnionId(unionId);
+        User user = new User();
+
+        user.setUnionId(unionId);
         user.setName(name);
         user.setPass(pass);
         user.setTeL(teL);
         user.setAddr(addr);
         user.setEmail(email);
-        user.setUpdateTime(System.currentTimeMillis());
+        System.out.println(user);
 
+        Map<String, Object> rs = new HashMap<>();
         rs.put("result", administratorService.updateUser(user) ? SUCCEED : FAIL);
         return rs;
     }

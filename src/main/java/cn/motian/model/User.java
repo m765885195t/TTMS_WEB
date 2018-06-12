@@ -2,9 +2,11 @@ package cn.motian.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class User extends BaseData {
     private String unionId;
     private String name;
@@ -26,5 +28,6 @@ public class User extends BaseData {
         this.addr = addr;
         this.email = email;
     }
+
 }
 
