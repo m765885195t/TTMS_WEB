@@ -3,13 +3,16 @@ package cn.motian.controller;
 import cn.motian.constant.TTMSConst;
 import cn.motian.exception.TTMSException;
 import cn.motian.model.User;
-import cn.motian.serveice.AdministratorService;
+import cn.motian.serveice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.FAIL;
@@ -18,9 +21,9 @@ import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.SUCCEED;
 
 @Controller
 @RequestMapping(TTMSConst.TTMS_SERVER_URL.ADMINISTRATOR)
-public class AdministratorController {
+public class UserController {
     @Autowired
-    private AdministratorService administratorService;
+    private UserService userService;
 
     @RequestMapping(params = "method=addUser", method = RequestMethod.POST)
     @ResponseBody
@@ -34,7 +37,7 @@ public class AdministratorController {
     ) {
         User user = new User(name, pass, identity, teL, addr, email);
         Map<String, Object> rs = new HashMap<>();
-        rs.put("result", administratorService.addUser(user) ? SUCCEED : FAIL);
+        rs.put("result", userService.addUser(user) ? SUCCEED : FAIL);
         return rs;
     }
 
@@ -48,7 +51,7 @@ public class AdministratorController {
             @RequestParam(required = false) String addr,
             @RequestParam(required = false) String email
     ) throws TTMSException {
-        User user = administratorService.getByUnionId(unionId);
+        User user = userService.getByUnionId(unionId);
         user.setUnionId(unionId);
         user.setName(name);
         user.setPass(pass);
@@ -58,7 +61,7 @@ public class AdministratorController {
         System.out.println(user);
 
         Map<String, Object> rs = new HashMap<>();
-        rs.put("result", administratorService.updateUser(user) ? SUCCEED : FAIL);
+        rs.put("result", userService.updateUser(user) ? SUCCEED : FAIL);
         return rs;
     }
 
@@ -68,8 +71,18 @@ public class AdministratorController {
     public Map<String, Object> getByUnionId(
             @RequestParam String unionId) throws TTMSException {
         Map<String, Object> rs = new HashMap<>();
-        User user = administratorService.getByUnionId(unionId);
+        User user = userService.getByUnionId(unionId);
+
         rs.put("user", user);
+        return rs;
+    }
+
+    @RequestMapping(params = "method=getUserList", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getUserList() {
+        Map<String, Object> rs = new HashMap<>();
+        List<User> userList = userService.getUserList();
+        rs.put("userList", userList);
         return rs;
     }
 
@@ -77,10 +90,8 @@ public class AdministratorController {
     @ResponseBody
     public Map<String, Object> addUser(
             @RequestParam String unionId) {
-
         Map<String, Object> rs = new HashMap<>();
-        rs.put("result", administratorService.deleterUser(unionId) ? SUCCEED : FAIL);
+        rs.put("result", userService.deleterUser(unionId) ? SUCCEED : FAIL);
         return rs;
     }
-
 }

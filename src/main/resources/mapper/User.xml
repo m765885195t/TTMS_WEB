@@ -38,7 +38,7 @@
 
     <select id="getByUnionId" resultMap="UserType">
         SELECT
-        <include refid="mappingColumns"></include>
+       user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
         FROM user
         WHERE user_id = #{unionId}
     </select>
@@ -50,11 +50,16 @@
 
     <select id="getUserInfo" resultMap="UserType">
         SELECT
-        <include refid="mappingColumns"></include>
+user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
         FROM user
         WHERE user_name=#{name} AND
         user_identity = #{identity}
     </select>
 
+    <select id="getUserList" resultMap="UserType">
+        SELECT
+        user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
+        FROM user
+    </select>
 
 </mapper>

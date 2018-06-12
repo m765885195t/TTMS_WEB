@@ -1,16 +1,15 @@
 package cn.motian.serveice.impl;
 
-import cn.motian.exception.TTMSException;
 import cn.motian.mapper.UserMapper;
 import cn.motian.model.User;
-import cn.motian.serveice.AdministratorService;
+import cn.motian.serveice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
+import java.util.List;
 
 @Service
-public class AdministratorServiceImpl implements AdministratorService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -23,16 +22,16 @@ public class AdministratorServiceImpl implements AdministratorService {
         return userMapper.update(user);
     }
 
-    public User getByUnionId(String unionId) throws TTMSException {
-        User user = userMapper.getByUnionId(unionId);
-        if (user == null) {
-            throw new TTMSException("user not find, unionId=" + unionId,
-                    TTMSException.TTMSExceptionType.UNKNOWN_UNION_ID);
-        }
-        return user;
+    public User getByUnionId(String unionId) {
+        return userMapper.getByUnionId(unionId);
+    }
+
+    public List<User> getUserList() {
+        return userMapper.getUserList();
     }
 
     public boolean deleterUser(String unionId) {
         return userMapper.deleter(unionId);
     }
 }
+
