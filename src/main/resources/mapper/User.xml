@@ -43,4 +43,18 @@
         WHERE user_id = #{unionId}
     </select>
 
+    <delete id="deleter">
+        DELETE FROM user
+        WHERE user_id = #{unionId}
+    </delete>
+
+    <select id="getUserInfo" resultMap="UserType">
+        SELECT
+        <include refid="mappingColumns"></include>
+        FROM user
+        WHERE user_name=#{name} AND
+        user_identity = #{identity}
+    </select>
+
+
 </mapper>

@@ -20,9 +20,6 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     public boolean updateUser(User user) {
-
-
-
         return userMapper.update(user);
     }
 
@@ -33,5 +30,9 @@ public class AdministratorServiceImpl implements AdministratorService {
                     TTMSException.TTMSExceptionType.UNKNOWN_UNION_ID);
         }
         return user;
+    }
+
+    public boolean deleterUser(String unionId) {
+        return userMapper.deleter(unionId);
     }
 }

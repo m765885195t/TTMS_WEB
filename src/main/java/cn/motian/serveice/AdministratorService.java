@@ -12,4 +12,5 @@ public interface AdministratorService {
 
     User getByUnionId(String unionId) throws TTMSException;
 
+    boolean deleterUser(String unionId);
 }

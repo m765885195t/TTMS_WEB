@@ -19,7 +19,6 @@ war {
 
 // 所需的依赖
 dependencies {
-    def springVersion = "4.2.8.RELEASE"
 
     //sping
     compile 'org.springframework:spring-webmvc:5.0.6.RELEASE'
@@ -27,8 +26,7 @@ dependencies {
     compile 'org.springframework:spring-core:5.0.5.RELEASE'
     compile 'org.springframework:spring-context:5.0.5.RELEASE'
     compile 'org.springframework:spring-tx:5.0.5.RELEASE'
-
-
+    compile 'org.springframework:spring-jdbc:4.2.5.RELEASE'
 
 
     //servlet依赖
@@ -45,7 +43,7 @@ dependencies {
 
     //连接池
     compile "com.alibaba:druid:1.0.12"
-    compile group: 'c3p0', name: 'c3p0', version: '0.9.1.2'
+    compile 'c3p0:c3p0:0.9.1.2'
 
 //   respose数据转换为json格式
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
@@ -60,5 +58,5 @@ dependencies {
     compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
     //junit 单元测试
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

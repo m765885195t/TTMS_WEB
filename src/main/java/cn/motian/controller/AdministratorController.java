@@ -22,7 +22,7 @@ public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
 
-    @RequestMapping(params = "method=addUser",method = RequestMethod.POST)
+    @RequestMapping(params = "method=addUser", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addUser(
             @RequestParam String name,
@@ -31,14 +31,14 @@ public class AdministratorController {
             @RequestParam(required = false) String teL,
             @RequestParam(required = false) String addr,
             @RequestParam(required = false) String email
-            ) throws TTMSException {
-        User user = new User(name, pass, identity,teL,addr,email);
+    ) {
+        User user = new User(name, pass, identity, teL, addr, email);
         Map<String, Object> rs = new HashMap<>();
         rs.put("result", administratorService.addUser(user) ? SUCCEED : FAIL);
         return rs;
     }
 
-    @RequestMapping(params = "method=updateUser",method = RequestMethod.POST)
+    @RequestMapping(params = "method=updateUser", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> updateUser(
             @RequestParam String unionId,
@@ -48,9 +48,7 @@ public class AdministratorController {
             @RequestParam(required = false) String addr,
             @RequestParam(required = false) String email
     ) throws TTMSException {
-//        User user = administratorService.getByUnionId(unionId);
-        User user = new User();
-
+        User user = administratorService.getByUnionId(unionId);
         user.setUnionId(unionId);
         user.setName(name);
         user.setPass(pass);
@@ -65,7 +63,7 @@ public class AdministratorController {
     }
 
 
-    @RequestMapping(params = "method=getUserByUnionId",method = RequestMethod.GET)
+    @RequestMapping(params = "method=getUserByUnionId", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getByUnionId(
             @RequestParam String unionId) throws TTMSException {
@@ -74,4 +72,15 @@ public class AdministratorController {
         rs.put("user", user);
         return rs;
     }
+
+    @RequestMapping(params = "method=deleterUser", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addUser(
+            @RequestParam String unionId) {
+
+        Map<String, Object> rs = new HashMap<>();
+        rs.put("result", administratorService.deleterUser(unionId) ? SUCCEED : FAIL);
+        return rs;
+    }
+
 }

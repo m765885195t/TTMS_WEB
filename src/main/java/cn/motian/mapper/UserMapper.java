@@ -1,6 +1,7 @@
 package cn.motian.mapper;
 
 import cn.motian.model.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     boolean insert(User user);
@@ -8,4 +9,8 @@ public interface UserMapper {
     boolean update(User user);
 
     User getByUnionId(String unionId);
+
+    boolean deleter(String unionId);
+
+    User getUserInfo(@Param("name") String name, @Param("identity")String identity);
 }
