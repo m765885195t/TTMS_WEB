@@ -27,7 +27,8 @@ public class LoginController {
             @RequestParam String name,
             @RequestParam String pass) {
         Map<String, Object> rs = new HashMap<>();
-        rs.put("result", loginService.login(name, pass) != null ? SUCCEED : FAIL);
+        String result = loginService.login(name, pass);
+        rs.put("result", result != null ? result : FAIL);
         return rs;
     }
 }
