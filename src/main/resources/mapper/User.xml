@@ -21,7 +21,7 @@
 
     <insert id="insert" parameterType="User">
         INSERT ignore into user (<include refid="mappingColumns"/>,user_update_time, user_create_time)
-        VALUES (#{name}, #{pass}, #{identity}, #{teL},#{addr},#{email},#{updateTime},now(),now())
+        VALUES (#{name}, #{pass}, #{identity}, #{teL},#{addr},#{email},now(),now())
     </insert>
 
     <update id="update" parameterType="User">

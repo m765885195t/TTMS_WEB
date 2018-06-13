@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class BaseData {
 //    private Long updateTime; //更新时间
-
 }
