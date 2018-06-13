@@ -8,16 +8,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Studio extends BaseData {
-    private int unionId;
+    private String unionId;
     private String name;
-    private String row;
-    private String col;
+    private int row;
+    private int col;
     private String introduce;
 
     public Studio() {
     }
 
-    public Studio(String name, String row, String col,
+    public Studio(String name, int row, int col,
                   String introduce) {
         this.name = name;
         this.row = row;

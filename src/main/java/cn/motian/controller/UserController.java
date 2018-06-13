@@ -52,7 +52,6 @@ public class UserController {
             @RequestParam(required = false) String email
     ) throws TTMSException {
         User user = userService.getByUnionId(unionId);
-        user.setUnionId(unionId);
         user.setName(name);
         user.setPass(pass);
         user.setTeL(teL);
@@ -88,7 +87,7 @@ public class UserController {
 
     @RequestMapping(params = "method=deleterUser", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> addUser(
+    public Map<String, Object> deleterUser(
             @RequestParam String unionId) {
         Map<String, Object> rs = new HashMap<>();
         rs.put("result", userService.deleterUser(unionId) ? SUCCEED : FAIL);

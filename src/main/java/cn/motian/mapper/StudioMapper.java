@@ -8,7 +8,7 @@ import java.util.List;
 public interface StudioMapper {
     boolean insert(Studio studio);
 
-    boolean update(User user);
+    boolean update(Studio studio);
 
     Studio getByUnionId(String unionId);
 

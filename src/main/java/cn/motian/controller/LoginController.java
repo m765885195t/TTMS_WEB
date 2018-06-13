@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.FAIL;
-import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.SUCCEED;
 
 @Controller
 @RequestMapping(TTMSConst.TTMS_SERVER_URL.LOGIN)
