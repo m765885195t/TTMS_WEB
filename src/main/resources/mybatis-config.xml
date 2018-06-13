@@ -16,5 +16,6 @@
     </settings>
     <typeAliases>
         <typeAlias alias="User" type="cn.motian.model.User"/>
+        <typeAlias alias="Studio" type="cn.motian.model.Studio"/>
     </typeAliases>
 </configuration>

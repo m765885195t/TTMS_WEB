@@ -1,5 +1,7 @@
 package cn.motian.serveice;
 
+import cn.motian.model.User;
+
 public interface LoginService {
-    boolean login(String name, String pass, String identity);
+    String login(String name, String pass);
 }

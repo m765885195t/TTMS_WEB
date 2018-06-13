@@ -16,12 +16,12 @@
     </resultMap>
 
     <sql id="mappingColumns">
-        user_name, user_pass, user_identity,user_tel_num,user_addr,user_email,user_update_time
+        user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
     </sql>
 
     <insert id="insert" parameterType="User">
-        INSERT into user (<include refid="mappingColumns"></include>, user_create_time)
-        VALUES (#{name}, #{pass}, #{identity}, #{teL},#{addr},#{email},#{updateTime},now())
+        INSERT ignore into user (<include refid="mappingColumns"/>,user_update_time, user_create_time)
+        VALUES (#{name}, #{pass}, #{identity}, #{teL},#{addr},#{email},#{updateTime},now(),now())
     </insert>
 
     <update id="update" parameterType="User">
@@ -38,7 +38,7 @@
 
     <select id="getByUnionId" resultMap="UserType">
         SELECT
-       user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
+        user_id,<include refid="mappingColumns"/>
         FROM user
         WHERE user_id = #{unionId}
     </select>
@@ -50,15 +50,14 @@
 
     <select id="getUserInfo" resultMap="UserType">
         SELECT
-user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
+        <include refid="mappingColumns"/>
         FROM user
-        WHERE user_name=#{name} AND
-        user_identity = #{identity}
+        WHERE user_name=#{name}
     </select>
 
     <select id="getUserList" resultMap="UserType">
         SELECT
-        user_name, user_pass, user_identity,user_tel_num,user_addr,user_email
+        user_id,<include refid="mappingColumns"/>
         FROM user
     </select>
 

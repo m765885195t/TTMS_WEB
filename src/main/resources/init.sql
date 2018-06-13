@@ -18,7 +18,7 @@ create table user (
   user_id          int          not null auto_increment,
   user_identity    nvarchar(50) not null
   comment '用户身份',
-  user_name        nvarchar(50) not null
+  user_name        nvarchar(50) not null unique
   comment '用户name',
   user_pass        nvarchar(50) not null
   comment '用户密码',
@@ -95,13 +95,16 @@ create table seat (
 
 create table studio (
   studio_id           int           not null auto_increment,
-  studio_name         nvarchar(100) not null
+  studio_name         nvarchar(100) not null unique
   comment '演出厅名',
   studio_row_count    int           not null
   comment '总行数',
   studio_col_count    int           not null
   comment '总列数',
   studio_introduction varchar(2000) comment '演出厅简介',
+  studio_update_time  timestamp,
+  studio_create_time  timestamp              default now(),
+
   primary key (studio_id)
 );
 

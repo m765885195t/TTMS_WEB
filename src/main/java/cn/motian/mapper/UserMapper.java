@@ -14,7 +14,7 @@ public interface UserMapper {
 
     boolean deleter(String unionId);
 
-    User getUserInfo(@Param("name") String name, @Param("identity")String identity);
+    User getUserInfo(@Param("name") String name);
 
     List<User> getUserList();
 }

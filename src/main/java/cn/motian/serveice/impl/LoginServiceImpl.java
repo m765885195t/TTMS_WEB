@@ -12,12 +12,12 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
 
     @Override
-    public boolean login(String name, String pass, String identity) {
-        User user = userMapper.getUserInfo(name, identity);
+    public String login(String name, String pass) {
+        User user = userMapper.getUserInfo(name);
         if (user != null && user.getPass().equals(pass)) {
-            return true;
+            return user.getIdentity();
         }
-        return false;
+        return null;
 
     }
 }

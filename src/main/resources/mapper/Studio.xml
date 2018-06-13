@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.StudioMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="StudioType" type="User">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="studio_id"/>
+        <result property="name" column="studio_name"/>
+        <result property="row" column="studio_row_count"/>
+        <result property="col" column="studio_col_count"/>
+        <result property="introduce" column="studio_introduction"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        studio_name, studio_row_count, studio_col_count,
+        studio_introduction
+    </sql>
+
+    <insert id="insert" parameterType="Studio">
+        INSERT ignore into studio (<include refid="mappingColumns"></include>,
+        studio_update_time, studio_create_time)
+        VALUES (#{name}, #{row}, #{col}, #{introduce},now(),now())
+    </insert>
+
+    <update id="update" parameterType="User">
+        UPDATE studio
+        SET
+        <if test="name!=null">studio_name=#{name},</if>
+        <if test="row!=null">studio_row_count =#{row},</if>
+        <if test="col!=null">studio_col_count=#{col},</if>
+        <if test="introduce!=null">studio_introduction=#{introduce},</if>
+        studio_update_time =now()
+        WHERE studio_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="StudioType">
+        SELECT
+        <include refid="mappingColumns"/>
+        FROM studio
+        WHERE studio_id = #{unionId}
+    </select>
+
+    <delete id="deleter">
+        DELETE FROM studio
+        WHERE studio_id = #{unionId}
+    </delete>
+    <select id="getStudioList" resultMap="StudioType">
+        SELECT
+        <include refid="mappingColumns"/>
+        FROM studio
+    </select>
+
+</mapper>

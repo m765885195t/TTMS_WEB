@@ -8,12 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Studio extends BaseData {
-    private String unionId;
+    private int unionId;
     private String name;
     private String row;
     private String col;
     private String introduce;
-
 
     public Studio() {
     }
