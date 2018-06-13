@@ -42,6 +42,13 @@
         WHERE studio_id = #{unionId}
     </select>
 
+    <select id="getByName" resultMap="StudioType">
+        SELECT
+        <include refid="mappingColumns"/>
+        FROM studio
+        WHERE studio_name = #{name}
+    </select>
+
     <delete id="deleter">
         DELETE FROM studio
         WHERE studio_id = #{unionId}

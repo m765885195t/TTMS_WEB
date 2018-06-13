@@ -37,6 +37,11 @@ public class StudioServiceImpl implements StudioService {
     }
 
     @Override
+    public Studio getByName(String name) {
+        return studioMapper.getByName(name);
+    }
+
+    @Override
     public boolean updateStudio(Studio studio) {
         return studioMapper.update(studio);
     }

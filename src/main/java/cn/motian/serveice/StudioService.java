@@ -9,6 +9,9 @@ public interface StudioService {
 
     Studio getByUnionId(String unionId);
 
+    Studio getByName(String name);
+
+
     boolean updateStudio(Studio studio);
 
     List<Studio> getStudioList();

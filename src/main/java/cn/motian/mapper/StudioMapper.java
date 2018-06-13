@@ -15,4 +15,6 @@ public interface StudioMapper {
     boolean deleter(String unionId);
 
     List<Studio> getStudioList();
+
+    Studio getByName(String name);
 }

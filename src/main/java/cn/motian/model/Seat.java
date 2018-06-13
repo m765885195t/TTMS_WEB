@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Seat {
     private String unionId;
-    private String StudioId;
+    private String studioId;
     private int row;
     private int col;
     private String status;
@@ -18,7 +18,7 @@ public class Seat {
     }
 
     public Seat(String studioId, int row, int col, String status) {
-        StudioId = studioId;
+        this.studioId = studioId;
         this.row = row;
         this.col = col;
         this.status = status;
