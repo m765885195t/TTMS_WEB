@@ -17,5 +17,11 @@
     <typeAliases>
         <typeAlias alias="User" type="cn.motian.model.User"/>
         <typeAlias alias="Studio" type="cn.motian.model.Studio"/>
+        <typeAlias alias="Seat" type="cn.motian.model.Seat"/>
+        <typeAlias alias="Play" type="cn.motian.model.Play"/>
+        <typeAlias alias="Schedule" type="cn.motian.model.Schedule"/>
+        <typeAlias alias="Ticket" type="cn.motian.model.Ticket"/>
+        <typeAlias alias="OrderRecord" type="cn.motian.model.OrderRecord"/>
+        <typeAlias alias="Order" type="cn.motian.model.Order"/>
     </typeAliases>
 </configuration>

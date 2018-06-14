@@ -1,7 +1,8 @@
 package cn.motian.controller;
 
 import cn.motian.constant.TTMSConst;
-import cn.motian.serveice.PayService;
+import cn.motian.model.Ticket;
+import cn.motian.serveice.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,27 +13,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.FAIL;
-import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.SUCCEED;
-
 @Controller
 @RequestMapping(TTMSConst.TTMS_SERVER_URL.CONDUCTOR)
-public class PayController {
+public class TicketController {
     @Autowired
-    private PayService payService;
+    private TicketService ticketService;
 
 
-    @RequestMapping(params = "method=pay", method = RequestMethod.POST)
+    @RequestMapping(params = "method=getTicketByScheduleIdAndSeatId", method = RequestMethod.GET)
     @ResponseBody
-    // 传入票的ID列表 以,分隔
-    public Map<String, Object> Pay(
-            @RequestParam String userId,   //用户id
-            @RequestParam String ticketList,  //购票列表
-            @RequestParam String paymentAmount //支付金额
+    public Map<String, Object> getTicketByScheduleIdAndSeatId(
+            @RequestParam String seatId,
+            @RequestParam String scheduleId
     ) {
-
         Map<String, Object> rs = new HashMap<>();
-        rs.put("result", payService.pay(userId, ticketList, paymentAmount) ? SUCCEED : FAIL);
+        Ticket ticket = ticketService.getTicketByScheduleIdAndSeatId(seatId,scheduleId);
+        rs.put("ticket", ticket);
         return rs;
     }
 

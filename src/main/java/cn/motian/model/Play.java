@@ -14,13 +14,13 @@ public class Play extends BaseData {
     private String name;
     private String introduction;
     private String image;
-    private Long length;//剧目时长  毫秒
+    private int length;//剧目时长  毫秒
 
 
     public Play() {
     }
 
-    public Play(String type, String language, String name, String introduction, String image, Long length) {
+    public Play(String type, String language, String name, String introduction, String image, int length) {
         this.type = type;
         this.language = language;
         this.name = name;

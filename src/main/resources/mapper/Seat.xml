@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.SeatMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="SeatType" type="Seat">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="seat_id"/>
+        <result property="studioId" column="studio_id"/>
+        <result property="row" column="seat_row"/>
+        <result property="col" column="seat_column"/>
+        <result property="status" column="seat_status"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        studio_id, seat_row, seat_column,seat_status
+    </sql>
+
+    <insert id="insert" parameterType="Seat">
+        INSERT ignore into seat (<include refid="mappingColumns"/>)
+        VALUES (#{studioId}, #{row}, #{col}, #{status})
+    </insert>
+
+    <update id="update" parameterType="Seat">
+        UPDATE seat
+        SET
+        <if test="status!=null">seat_status=#{status},</if>
+        WHERE seat_id = #{unionId}
+    </update>
+
+
+    <select id="getByUnionId" resultMap="SeatType">
+        SELECT
+        seat_id,
+        <include refid="mappingColumns"/>
+        FROM seat
+        WHERE seat_id = #{unionId}
+    </select>
+
+
+    <delete id="deleter">
+        DELETE FROM seat
+        WHERE seat_id = #{unionId}
+    </delete>
+
+    <select id="getSeatByStudioId" resultMap="SeatType">
+        SELECT
+        seat_id,
+        <include refid="mappingColumns"/>
+        FROM seat
+        WHERE studio_id = #{studioId}
+    </select>
+
+
+    <select id="getSeatByPosition" resultMap="SeatType">
+        SELECT
+        seat_id,
+        <include refid="mappingColumns"/>
+        FROM seat
+        WHERE seat_row = #{row}
+        AND seat_column = #{col}
+    </select>
+
+</mapper>

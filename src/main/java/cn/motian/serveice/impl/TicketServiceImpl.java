@@ -37,4 +37,9 @@ public class TicketServiceImpl implements TicketService {
         return ticketMapper.getByScheduleId();
     }
 
+    @Override
+    public Ticket getTicketByScheduleIdAndSeatId(String seatId, String scheduleId) {
+        return ticketMapper.getTicketByScheduleIdAndSeatId(seatId, scheduleId);
+    }
+
 }

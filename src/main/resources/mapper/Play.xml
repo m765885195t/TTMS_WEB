@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.PlayMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="PlayType" type="Play">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="play_id"/>
+        <result property="type" column="play_type"/>
+        <result property="language" column="play_language"/>
+        <result property="name" column="play_name"/>
+        <result property="introduction" column="play_introduction"/>
+        <result property="image" column="play_image"/>
+        <result property="length" column="play_duration"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        play_type, play_language, play_name,play_introduction,
+        play_image,play_duration
+    </sql>
+
+    <insert id="insert" parameterType="Play">
+        INSERT ignore into play (<include refid="mappingColumns"/>)
+        VALUES (#{type}, #{language}, #{name}, #{introduction}
+        , #{image} , #{length})
+    </insert>
+
+    <update id="update" parameterType="Play">
+        UPDATE play
+        SET
+        <if test="type!=null">play_type=#{type},</if>
+        <if test="language!=null">play_language=#{language},</if>
+        <if test="name!=null">play_name=#{name},</if>
+        <if test="introduction!=null">play_introduction=#{introduction},</if>
+        <if test="image!=null">play_image =#{image},</if>
+        <if test="length!=null">play_duration=#{length},</if>
+        WHERE play_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="PlayType">
+        SELECT
+        play_id,
+        <include refid="mappingColumns"/>
+        FROM play
+        WHERE play_id = #{unionId}
+    </select>
+
+    <select id="getByName" resultMap="PlayType">
+        SELECT
+        play_id,
+        <include refid="mappingColumns"/>
+        FROM play
+        WHERE play_name = #{name}
+    </select>
+
+    <delete id="deleter">
+        DELETE FROM play
+        WHERE play_id = #{unionId}
+    </delete>
+    <select id="getPlayList" resultMap="PlayType">
+        SELECT
+        play_id,
+        <include refid="mappingColumns"/>
+        FROM play
+    </select>
+
+</mapper>

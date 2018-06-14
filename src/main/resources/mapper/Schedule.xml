@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.ScheduleMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="ScheduleType" type="Schedule">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="schedule_id"/>
+        <result property="studioId" column="studio_id"/>
+        <result property="playId" column="play_id"/>
+        <result property="time" column="schedule_time"/>
+        <result property="price" column="schedule_price"/>
+        <result property="status" column="schedule_status"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        studio_id, play_id, schedule_time,schedule_price,
+        schedule_status
+    </sql>
+
+    <insert id="insert" parameterType="Schedule">
+        INSERT ignore into schedule (<include refid="mappingColumns"/>)
+        VALUES (#{studioId}, #{playId}, #{time}, #{price},#{status})
+    </insert>
+
+    <update id="update" parameterType="Schedule">
+        UPDATE schedule
+        SET
+        <if test="studioId!=null">studio_id=#{studioId},</if>
+        <if test="playId!=null">play_id=#{playId},</if>
+        <if test="time!=null">schedule_time =#{time},</if>
+        <if test="price!=null">schedule_price=#{price},</if>
+        <if test="status!=null">schedule_status=#{status},</if>
+        WHERE schedule_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="ScheduleType">
+        SELECT
+        studio_id,
+        <include refid="mappingColumns"/>
+        FROM schedule
+        WHERE schedule_id = #{unionId}
+    </select>
+
+    <delete id="deleter">
+        DELETE FROM schedule
+        WHERE schedule_id = #{unionId}
+    </delete>
+
+    <select id="getScheduleList" resultMap="ScheduleType">
+        SELECT
+        schedule_id,
+        <include refid="mappingColumns"/>
+        FROM schedule
+    </select>
+
+    <select id="getByStudioidAndPlayidAndTime" resultMap="ScheduleType">
+        SELECT
+        schedule_id,
+        <include refid="mappingColumns"/>
+        FROM schedule
+        WHERE studio_id = #{studioId}
+        AND play_id = #{playId}
+
+    </select>
+
+</mapper>

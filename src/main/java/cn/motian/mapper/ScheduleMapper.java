@@ -15,7 +15,5 @@ public interface ScheduleMapper {
 
     List<Schedule> getScheduleList();
 
-    Schedule getByName(String name);
-
     Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, Long time);
 }

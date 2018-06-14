@@ -6,6 +6,7 @@ import cn.motian.model.Seat;
 import cn.motian.model.Studio;
 import cn.motian.serveice.SeatService;
 import cn.motian.serveice.StudioService;
+import cn.motian.serveice.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class SeatServiceImpl implements SeatService {
     private SeatMapper seatMapper;
     @Autowired
     private StudioService studioService;
+    private TicketService ticketService;
 
     @Override
     public boolean addSeat(Seat seat) {
@@ -34,6 +36,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     public boolean deleterSeat(String unionId) {
+//        if(ticketService.)   //检查该座位上是否有票
         return seatMapper.deleter(unionId);
     }
 

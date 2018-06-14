@@ -13,4 +13,5 @@ public interface TicketService {
 
     List<Ticket> getByScheduleId(String scheduleId);
 
+    Ticket getTicketByScheduleIdAndSeatId(String seatId, String scheduleId);
 }

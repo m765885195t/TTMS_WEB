@@ -73,10 +73,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleMapper.getByUnionId(unionId);
     }
 
-    @Override
-    public Schedule getByName(String name) {
-        return scheduleMapper.getByName(name);
-    }
+
 
 
     @Override

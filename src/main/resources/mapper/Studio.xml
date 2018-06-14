@@ -4,7 +4,7 @@
 
 <mapper namespace="cn.motian.mapper.StudioMapper">
     <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
-    <resultMap id="StudioType" type="User">
+    <resultMap id="StudioType" type="Studio">
         <!--       bean的属性名         数据库中的列名-->
         <result property="unionId" column="studio_id"/>
         <result property="name" column="studio_name"/>

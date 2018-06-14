@@ -20,7 +20,7 @@ import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.FAIL;
 import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.SUCCEED;
 
 @Controller
-@RequestMapping(TTMSConst.TTMS_SERVER_URL.ADMINISTRATOR)
+@RequestMapping(TTMSConst.TTMS_SERVER_URL.MANAGER)
 public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;

@@ -12,6 +12,7 @@ public interface TicketMapper {
 
     boolean updateTicketStatus(Ticket studio);
 
+    Ticket getTicketByScheduleIdAndSeatId(String seatId, String scheduleId);
 
     List<Ticket> getByScheduleId();
 }

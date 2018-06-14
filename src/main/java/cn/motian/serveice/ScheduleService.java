@@ -10,8 +10,6 @@ public interface ScheduleService {
 
     Schedule getByUnionId(String unionId);
 
-    Schedule getByName(String name);
-
     boolean updateSchedule(Schedule studio);
 
     List<Schedule> getScheduleList();

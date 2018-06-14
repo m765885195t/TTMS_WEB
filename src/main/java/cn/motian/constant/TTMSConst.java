@@ -68,4 +68,16 @@ public interface TTMSConst {
         }
     }
 
+    enum TTMS_Order_STATUS { //订单状态
+        CREATE(1),//创建
+        PAY(2),//支付成功
+        REFUND(3),//退款
+        CANCEL(4);//取消
+
+        int index;
+
+        TTMS_Order_STATUS(int index) {
+            this.index = index;
+        }
+    }
 }
