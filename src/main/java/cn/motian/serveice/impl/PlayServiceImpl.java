@@ -16,7 +16,7 @@ public class PlayServiceImpl implements PlayService {
 
     public boolean addPlay(Play play) {
         // 需要传入play_type的字面值
-        play.setType(String.valueOf(TTMSConst.TTMS_PLAY_TYPE.valueOf(play.getType()).ordinal()));
+        play.setType(String.valueOf(TTMSConst.TTMS_PLAY_TYPE.valueOf(play.getType())));
         play.setLanguage(String.valueOf(TTMSConst.TTMS_PLAY_LANG.valueOf(play.getLanguage())));
 
         return playMapper.insert(play);

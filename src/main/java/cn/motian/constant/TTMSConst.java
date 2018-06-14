@@ -3,7 +3,7 @@ package cn.motian.constant;
 public interface TTMSConst {
     class TTMS_SERVER_URL {
         public static final String ADMINISTRATOR = "/administrator";// 管理员主页面
-        public static final String MANAGER = "/manager";// 经理主页面
+        public static final String MANAGER = "/director";// 经理主页面
         public static final String CONDUCTOR = "/conductor";// 售票员主页面
         public static final String LOGIN = "/login";// 登录
     }

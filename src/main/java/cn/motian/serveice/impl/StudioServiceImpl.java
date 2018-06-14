@@ -1,5 +1,6 @@
 package cn.motian.serveice.impl;
 
+import cn.motian.constant.TTMSConst;
 import cn.motian.mapper.StudioMapper;
 import cn.motian.model.Seat;
 import cn.motian.model.Studio;
@@ -22,7 +23,7 @@ public class StudioServiceImpl implements StudioService {
         if (studioMapper.insert(studio)) {
             for (int i = 0; i < studio.getRow(); i++) {
                 for (int j = 0; j < studio.getCol(); j++) {
-                    Seat seat = new Seat(studio.getUnionId(), i, j, "0");
+                    Seat seat = new Seat(studio.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE")));
                     seatService.addSeat(seat);
                 }
             }
@@ -53,7 +54,7 @@ public class StudioServiceImpl implements StudioService {
 
     @Override
     public boolean deleterStudio(String unionId) {
-        if(seatService.deleterSeat(unionId)){
+        if (seatService.deleterSeat(unionId)) {
             return studioMapper.deleter(unionId);
         }
         return false;

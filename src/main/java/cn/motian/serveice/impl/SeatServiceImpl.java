@@ -23,8 +23,6 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public boolean addSeat(Seat seat) {
-        seat.setStatus(String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf(seat.getStatus()).ordinal()));
-
         return seatMapper.insert(seat);
     }
 
