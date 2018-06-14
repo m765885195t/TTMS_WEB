@@ -66,6 +66,17 @@ public class StudioController {
         return rs;
     }
 
+    @RequestMapping(params = "method=getByName", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getByName(
+            @RequestParam String name) {
+        Map<String, Object> rs = new HashMap<>();
+        Studio studio = studioService.getByName(name);
+        rs.put("studio", studio);
+        return rs;
+    }
+
+
     @RequestMapping(params = "method=getStudioList", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getStudioList() {
