@@ -10,8 +10,6 @@ import cn.motian.serveice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 
 import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.DAMAGE;
@@ -38,6 +36,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     private SeatService seatService;
 
     public boolean addSchedule(Schedule schedule) {
+        System.out.println(schedule.toString());
+
         //name转换为id
         schedule.setStudioId(studioService.getByName(schedule.getStudioId()).getUnionId());
         schedule.setPlayId(playService.getByName(schedule.getPlayId()).getUnionId());
@@ -61,13 +61,13 @@ public class ScheduleServiceImpl implements ScheduleService {
                 }
                 ticketService.addTicket(ticket);
             }
+            return true;
         }
-
-        return scheduleMapper.insert(schedule);
+        return false;
     }
 
 
-    public Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, Long time) {
+    public Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, String time) {
         return scheduleMapper.getByStudioidAndPlayidAndTime(studioId, playId, time);
     }
 
@@ -89,16 +89,15 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> getScheduleList() {
         List<Schedule> schedules = scheduleMapper.getScheduleList();
-        System.out.println(schedules.get(0).toString());
-        schedules.stream()
-                .forEach(o -> {
-                    o.setPlayId(playService.getByUnionId(o.getPlayId()).getName());
-                    o.setStudioId(studioService.getByUnionId(o.getStudioId()).getName());
-                });
-
+        if (schedules.size() > 0) {
+            System.out.println(schedules.get(0).toString());
+            schedules.stream()
+                    .forEach(o -> {
+                        o.setPlayId(playService.getByUnionId(o.getPlayId()).getName());
+                        o.setStudioId(studioService.getByUnionId(o.getStudioId()).getName());
+                    });
+        }
         return schedules;
-
-
     }
 
     @Override

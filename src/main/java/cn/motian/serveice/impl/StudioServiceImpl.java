@@ -27,7 +27,7 @@ public class StudioServiceImpl implements StudioService {
                 Studio st = studioService.getByName(studio.getName());
                 for (int i = 0; i < Integer.valueOf(studio.getRow()); i++) {
                     for (int j = 0; j < Integer.valueOf(studio.getCol()); j++) {
-                        Seat seat = new Seat(st.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE").getIndex()));
+                        Seat seat = new Seat(st.getUnionId(), String.valueOf(i), String.valueOf(j), String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE").getIndex()));
                         seatService.addSeat(seat);
                     }
                 }

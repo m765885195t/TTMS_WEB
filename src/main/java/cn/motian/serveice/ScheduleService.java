@@ -14,7 +14,7 @@ public interface ScheduleService {
 
     List<Schedule> getScheduleList();
 
-    Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, Long time);
+    Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, String time);
 
     boolean deleterSchedule(String unionId);
 }

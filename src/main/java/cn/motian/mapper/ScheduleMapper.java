@@ -18,5 +18,5 @@ public interface ScheduleMapper {
 
     Schedule getByStudioidAndPlayidAndTime(@Param("studioId") String studioId,
                                            @Param("playId") String playId,
-                                           @Param("time") Long time);
+                                           @Param("time") String time);
 }

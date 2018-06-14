@@ -11,7 +11,7 @@ public class Schedule {
     private String unionId;
     private String studioId;
     private String playId;
-    private Long time; //演出开始时间  毫秒
+    private String time; //演出开始时间  毫秒
     private String price;
     private String status;
 
@@ -19,7 +19,7 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String studioId, String playId, Long time, String price, String status) {
+    public Schedule(String studioId, String playId, String time, String price, String status) {
         this.studioId = studioId;
         this.playId = playId;
         this.time = time;

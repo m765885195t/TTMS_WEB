@@ -34,7 +34,7 @@ public class ScheduleController {
     public Map<String, Object> addSchedule(
             @RequestParam String studioName,
             @RequestParam String playName,
-            @RequestParam Long time,
+            @RequestParam String time,
             @RequestParam String price,
             @RequestParam String status
     ) {
@@ -50,7 +50,7 @@ public class ScheduleController {
             @RequestParam String unionId,
             @RequestParam String studioName,
             @RequestParam String playName,
-            @RequestParam Long time,
+            @RequestParam String time,
             @RequestParam String price,
             @RequestParam String status
     ) {
