@@ -46,6 +46,16 @@ public class SeatController {
         return rs;
     }
 
+    @RequestMapping(params = "method=getSeatByStudioName", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getSeatByStudioName(
+            @RequestParam String studioName) {
+        Map<String, Object> rs = new HashMap<>();
+        List<Seat> seatList = seatService.getSeatByStudioName(studioName);
+        rs.put("seatList", seatList);
+        return rs;
+    }
+
     @RequestMapping(params = "method=getSeatByPosition", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getSeatByPosition(

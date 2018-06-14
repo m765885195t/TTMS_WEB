@@ -17,4 +17,6 @@ public interface SeatService {
     Seat getSeatByPosition(String studioName, String row, String colum);
 
     boolean deleterSeat(String unionId);
+
+    List<Seat> getSeatByStudioName(String studioName);
 }

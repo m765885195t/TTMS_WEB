@@ -39,6 +39,11 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
+    public List<Seat> getSeatByStudioName(String studioName) {
+        return seatMapper.getSeatByStudioId(studioService.getByName(studioName).getUnionId());
+    }
+
+    @Override
     public Seat getByUnionId(String unionId) {
         return seatMapper.getByUnionId(unionId);
     }
