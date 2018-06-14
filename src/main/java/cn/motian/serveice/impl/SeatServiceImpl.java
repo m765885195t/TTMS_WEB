@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.DAMAGE;
+import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.USE;
+
 
 @Service
 public class SeatServiceImpl implements SeatService {
@@ -50,7 +53,20 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public List<Seat> getSeatByStudioId(String studioId) {
-        return seatMapper.getSeatByStudioId(studioId);
+        List<Seat> schedules = seatMapper.getSeatByStudioId(studioId);
+        if (schedules.size() > 0) {
+            System.out.println(schedules.get(0).toString());
+            schedules.stream()
+                    .forEach(o -> {
+                        if (USE.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(USE));
+                        } else if (DAMAGE.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(DAMAGE));
+
+                        }
+                    });
+        }
+        return schedules;
     }
 
     @Override
