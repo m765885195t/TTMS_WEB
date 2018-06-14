@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface TicketMapper {
-    boolean addTicket(Ticket ticket);
+    boolean insert(Ticket ticket);
 
     Ticket getByUnionId(String unionId);
 

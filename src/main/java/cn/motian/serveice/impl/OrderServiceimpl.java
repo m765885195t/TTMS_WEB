@@ -16,7 +16,7 @@ public class OrderServiceimpl implements OrderService {
 
     @Override
     public Order addOrder(Order order) {
-        return orderMapper.addOrder(order);
+        return orderMapper.insert(order);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class OrderServiceimpl implements OrderService {
 
     @Override
     public boolean updateOrder(Order order) {
-        return orderMapper.updateOrder(order);
+        return orderMapper.update(order);
     }
 
     @Override

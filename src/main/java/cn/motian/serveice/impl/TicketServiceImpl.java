@@ -19,7 +19,7 @@ public class TicketServiceImpl implements TicketService {
         if (ticket == null) {
             return false;
         }
-        return ticketMapper.addTicket(ticket);
+        return ticketMapper.insert(ticket);
     }
 
     @Override

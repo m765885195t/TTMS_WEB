@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.TicketMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="TicketType" type="Ticket">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="ticket_id"/>
+        <result property="seatId" column="seata_id"/>
+        <result property="scheduleId" column="schedule_id"/>
+        <result property="price" column="ticket_price"/>
+        <result property="status" column="ticket_status"/>
+    </resultMap>
+
+    <sql id="mappingColumns">
+        seata_id, schedule_id,
+        ticket_price,ticket_status
+    </sql>
+
+    <insert id="insert" parameterType="Ticket">
+        INSERT ignore into ticket (<include refid="mappingColumns"/>)
+        VALUES (#{seatId}, #{scheduleId}, #{price}, #{status})
+    </insert>
+
+    <update id="updateTicketStatus" parameterType="Ticket">
+        UPDATE ticket
+        SET
+        <if test="status!=null">ticket_status=#{status},</if>
+        WHERE ticket_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="TicketType">
+        SELECT
+        ticket_id,
+        <include refid="mappingColumns"/>
+        FROM ticket
+        WHERE ticket_id = #{unionId}
+    </select>
+
+    <select id="getTicketByScheduleIdAndSeatId" resultMap="TicketType">
+        SELECT
+        ticket_id,
+        <include refid="mappingColumns"/>
+        FROM ticket
+        WHERE schedule_id = #{scheduleId}
+        AND seata_id = #{seatId}
+    </select>
+
+
+    <select id="getByScheduleId" resultMap="TicketType">
+        SELECT
+        ticket_id,
+        <include refid="mappingColumns"/>
+        FROM ticket
+        WHERE schedule_id = #{scheduleId}
+    </select>
+
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.motian.mapper.OrderMapper">
+    <!--结果集合映射到JavaBean中，返回的结果是JavaBean-->
+    <resultMap id="OrderType" type="Order">
+        <!--       bean的属性名         数据库中的列名-->
+        <result property="unionId" column="sale_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="paymentAmount" column="sale_payment"/>
+        <result property="retrievedAmount" column="sale_refund"/>
+        <result property="status" column="sale_status"/>
+    </resultMap>
+
+    <resultMap id="OrderRecordType" type="OrderRecord">
+        <result property="unionId" column="sale_item_id"/>
+        <result property="ticketId" column="ticket_id"/>
+        <result property="orderId" column="sale_id"/>
+        <result property="price" column="sale_price"/>
+    </resultMap>
+
+    <sql id="OrderRecordMappingColumns">
+         ticket_id, sale_id, sale_price
+    </sql>
+
+    <insert id="addOrderRecord" parameterType="OrderRecord">
+        INSERT ignore into order (<include refid="OrderRecordMappingColumns"/>, sale_time)
+        VALUES (#{ticketId}, #{orderId}, #{price})
+    </insert>
+
+    <sql id="OrderMappingColumns">
+        user_id, sale_payment, sale_refund, sale_status
+    </sql>
+
+
+    <insert id="insert" parameterType="Order">
+        INSERT ignore into order (<include refid="OrderMappingColumns"/>, sale_time)
+        VALUES (#{userId}, #{paymentAmount}, #{retrievedAmount}, #{status})
+    </insert>
+
+    <update id="update" parameterType="Order">
+        UPDATE order
+        SET
+        <if test="paymentAmount!=null">sale_payment =#{paymentAmount},</if>
+        <if test="retrievedAmount!=null">sale_refund=#{retrievedAmount},</if>
+        <if test="status!=null">sale_status=#{status}</if>
+        WHERE sale_id = #{unionId}
+    </update>
+
+    <select id="getByUnionId" resultMap="OrderType">
+        SELECT
+        sale_id,
+        <include refid="OrderMappingColumns"/>
+        FROM order
+        WHERE sale_id = #{unionId}
+    </select>
+
+    <select id="getOrderListByUserId" resultMap="OrderType">
+        SELECT
+        sale_id,
+        <include refid="OrderMappingColumns"/>
+        FROM order
+        WHERE user_id = #{userId}
+    </select>
+
+
+</mapper>
