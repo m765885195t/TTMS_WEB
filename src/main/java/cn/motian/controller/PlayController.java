@@ -31,7 +31,7 @@ public class PlayController {
             @RequestParam String name,
             @RequestParam String introduction,
             @RequestParam String image,
-            @RequestParam Long length
+            @RequestParam int length
             ) {
         Play play = new Play(type, language, name, introduction, image, length);
         Map<String, Object> rs = new HashMap<>();
