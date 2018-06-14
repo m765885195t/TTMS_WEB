@@ -23,7 +23,7 @@ public class StudioServiceImpl implements StudioService {
         if (studioMapper.insert(studio)) {
             for (int i = 0; i < studio.getRow(); i++) {
                 for (int j = 0; j < studio.getCol(); j++) {
-                    Seat seat = new Seat(studio.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE")));
+                    Seat seat = new Seat(studio.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE").getIndex()));
                     seatService.addSeat(seat);
                 }
             }

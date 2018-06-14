@@ -40,7 +40,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setStudioId(studioService.getByName(schedule.getStudioId()).getUnionId());
         schedule.setPlayId(playService.getByName(schedule.getPlayId()).getUnionId());
         // 状态转换为常量    前端传入表面字符
-        schedule.setStatus(String.valueOf(TTMSConst.TTMS_SCHEDULE_STATUS.valueOf(schedule.getStatus())));
+        schedule.setStatus(String.valueOf(TTMSConst.TTMS_SCHEDULE_STATUS.valueOf(schedule.getStatus()).getIndex()));
 
         //插入schedule
         if (scheduleMapper.insert(schedule)) {

@@ -15,9 +15,9 @@ public class PlayServiceImpl implements PlayService {
     private PlayMapper playMapper;
 
     public boolean addPlay(Play play) {
-        // 需要传入play_type的字面值
-        play.setType(String.valueOf(TTMSConst.TTMS_PLAY_TYPE.valueOf(play.getType())));
-        play.setLanguage(String.valueOf(TTMSConst.TTMS_PLAY_LANG.valueOf(play.getLanguage())));
+        // 需要传入play_type的字面值  数据库中插入下标
+        play.setType(String.valueOf(TTMSConst.TTMS_PLAY_TYPE.valueOf(play.getType()).getIndex()));
+        play.setLanguage(String.valueOf(TTMSConst.TTMS_PLAY_LANG.valueOf(play.getLanguage()).getIndex()));
 
         return playMapper.insert(play);
     }

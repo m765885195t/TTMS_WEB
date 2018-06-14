@@ -18,7 +18,7 @@ import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.FAIL;
 import static cn.motian.constant.TTMSConst.TTMS_RESULT_STATUS.SUCCEED;
 
 @Controller
-@RequestMapping(TTMSConst.TTMS_SERVER_URL.ADMINISTRATOR)
+@RequestMapping(TTMSConst.TTMS_SERVER_URL.MANAGER)
 public class PlayController {
     @Autowired
     private PlayService playService;
@@ -30,7 +30,7 @@ public class PlayController {
             @RequestParam String language,
             @RequestParam String name,
             @RequestParam String introduction,
-            @RequestParam String image,
+            @RequestParam(required = false) String image,
             @RequestParam int length
             ) {
         Play play = new Play(type, language, name, introduction, image, length);

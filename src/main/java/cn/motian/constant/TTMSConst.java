@@ -22,6 +22,10 @@ public interface TTMSConst {
         TTMS_USER_IDENTITY(int index) {
             this.index = index;
         }
+
+        public int getIndex() {
+            return index;
+        }
     }
 
     enum TTMS_PLAY_TYPE { // 剧目类型
@@ -34,15 +38,23 @@ public interface TTMSConst {
         TTMS_PLAY_TYPE(int index) {
             this.index = index;
         }
+
+        public int getIndex() {
+            return index;
+        }
     }
 
     enum TTMS_PLAY_LANG { // 剧目语种
-        Chinese(1),//中文
-        English(2);//英文
+        CHINESE(1),//中文
+        ENGLISH(2);//英文
         int index;
 
         TTMS_PLAY_LANG(int index) {
             this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
 
@@ -54,6 +66,10 @@ public interface TTMSConst {
         TTMS_SEAT_STATUS(int index) {
             this.index = index;
         }
+
+        public int getIndex() {
+            return index;
+        }
     }
 
     enum TTMS_SCHEDULE_STATUS { // 演出计划状态
@@ -64,6 +80,11 @@ public interface TTMSConst {
         TTMS_SCHEDULE_STATUS(int index) {
             this.index = index;
         }
+
+        public int getIndex() {
+            return index;
+        }
+
     }
 
     enum TTMS_TICKET_STATUS { //票状态
@@ -75,6 +96,10 @@ public interface TTMSConst {
 
         TTMS_TICKET_STATUS(int index) {
             this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
 
@@ -88,6 +113,10 @@ public interface TTMSConst {
 
         TTMS_Order_STATUS(int index) {
             this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
 }
