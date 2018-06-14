@@ -17,4 +17,6 @@ public interface StudioService {
     List<Studio> getStudioList();
 
     boolean deleterStudio(String unionId);
+
+    boolean deleterStudioByName(String name);
 }

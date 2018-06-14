@@ -62,7 +62,9 @@
         FROM schedule
         WHERE studio_id = #{studioId}
         AND play_id = #{playId}
-
+        AND schedule_time = #{time}
+        ORDER BY schedule_id DESC
+        limit 1;
     </select>
 
 </mapper>

@@ -27,8 +27,8 @@ public class StudioController {
     @ResponseBody
     public Map<String, Object> addStudio(
             @RequestParam String name,
-            @RequestParam int row,
-            @RequestParam int col,
+            @RequestParam String row,
+            @RequestParam String col,
             @RequestParam(required = false) String introduce
     ) {
         Studio studio = new Studio(name, row, col, introduce);
@@ -55,6 +55,22 @@ public class StudioController {
         return rs;
     }
 
+    @RequestMapping(params = "method=updateStudioByName", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateStudioByName(
+            @RequestParam String name,
+            @RequestParam(required = false) String introduce
+    ) {
+        Studio studio = studioService.getByName(name);
+        studio.setName(name);
+        studio.setIntroduce(introduce);
+
+        System.out.println(studio);
+
+        Map<String, Object> rs = new HashMap<>();
+        rs.put("result", studioService.updateStudio(studio) ? SUCCEED : FAIL);
+        return rs;
+    }
 
     @RequestMapping(params = "method=getStudioByUnionId", method = RequestMethod.GET)
     @ResponseBody
@@ -95,4 +111,12 @@ public class StudioController {
         return rs;
     }
 
+    @RequestMapping(params = "method=deleterStudioByName", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleterStudioByName(
+            @RequestParam String name) {
+        Map<String, Object> rs = new HashMap<>();
+        rs.put("result", studioService.deleterStudioByName(name) ? SUCCEED : FAIL);
+        return rs;
+    }
 }

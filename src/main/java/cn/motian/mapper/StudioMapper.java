@@ -17,4 +17,6 @@ public interface StudioMapper {
     List<Studio> getStudioList();
 
     Studio getByName(String name);
+
+    boolean deleterStudioByName(String name);
 }

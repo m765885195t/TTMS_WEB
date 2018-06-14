@@ -10,6 +10,8 @@ import cn.motian.serveice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.DAMAGE;
@@ -41,18 +43,20 @@ public class ScheduleServiceImpl implements ScheduleService {
         schedule.setPlayId(playService.getByName(schedule.getPlayId()).getUnionId());
         // 状态转换为常量    前端传入表面字符
         schedule.setStatus(String.valueOf(TTMSConst.TTMS_SCHEDULE_STATUS.valueOf(schedule.getStatus()).getIndex()));
+        System.out.println(schedule.toString());
 
         //插入schedule
         if (scheduleMapper.insert(schedule)) {
             // 生成票
-            Studio studio = studioService.getByName(schedule.getStudioId());
+            Studio studio = studioService.getByUnionId(schedule.getStudioId());
+            System.out.println(studio.toString());
             List<Seat> seatList = seatService.getSeatByStudioId(studio.getUnionId());
             schedule = scheduleService.getByStudioidAndPlayidAndTime(schedule.getStudioId(), schedule.getPlayId(), schedule.getTime());
             Ticket ticket = null;
             for (Seat seat : seatList) {
-                if (String.valueOf(USE.ordinal()).equals(seat.getStatus())) {
+                if (String.valueOf(USE.getIndex()).equals(seat.getStatus())) {
                     ticket = new Ticket(seat.getUnionId(), schedule.getUnionId(), schedule.getPrice(), String.valueOf(UNSOLD.ordinal()));
-                } else if (String.valueOf(DAMAGE.ordinal()).equals(seat.getStatus())) {
+                } else if (String.valueOf(DAMAGE.getIndex()).equals(seat.getStatus())) {
                     ticket = new Ticket(seat.getUnionId(), schedule.getUnionId(), schedule.getPrice(), String.valueOf(NOEXIT.ordinal()));
                 }
                 ticketService.addTicket(ticket);
@@ -74,8 +78,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-
-
     @Override
     public boolean updateSchedule(Schedule schedule) {
         if (schedule.getStatus() != null) {
@@ -86,7 +88,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> getScheduleList() {
-        return scheduleMapper.getScheduleList();
+        List<Schedule> schedules = scheduleMapper.getScheduleList();
+        System.out.println(schedules.get(0).toString());
+        schedules.stream()
+                .forEach(o -> {
+                    o.setPlayId(playService.getByUnionId(o.getPlayId()).getName());
+                    o.setStudioId(studioService.getByUnionId(o.getStudioId()).getName());
+                });
+
+        return schedules;
+
+
     }
 
     @Override

@@ -9,11 +9,13 @@ import cn.motian.serveice.StudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
 public class StudioServiceImpl implements StudioService {
-
+    @Autowired
+    private StudioService studioService;
     @Autowired
     private StudioMapper studioMapper;
     @Autowired
@@ -21,9 +23,10 @@ public class StudioServiceImpl implements StudioService {
 
     public boolean addStudio(Studio studio) {
         if (studioMapper.insert(studio)) {
-            for (int i = 0; i < studio.getRow(); i++) {
-                for (int j = 0; j < studio.getCol(); j++) {
-                    Seat seat = new Seat(studio.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE").getIndex()));
+            Studio st = studioService.getByName(studio.getName());
+            for (int i = 0; i < Integer.valueOf(studio.getRow()); i++) {
+                for (int j = 0; j < Integer.valueOf(studio.getCol()); j++) {
+                    Seat seat = new Seat(st.getUnionId(), i, j, String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf("USE").getIndex()));
                     seatService.addSeat(seat);
                 }
             }
@@ -58,5 +61,10 @@ public class StudioServiceImpl implements StudioService {
             return studioMapper.deleter(unionId);
         }
         return false;
+    }
+
+    @Override
+    public boolean deleterStudioByName(String name) {
+        return studioMapper.deleterStudioByName(name);
     }
 }

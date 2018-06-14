@@ -1,6 +1,7 @@
 package cn.motian.mapper;
 
 import cn.motian.model.Schedule;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface ScheduleMapper {
 
     List<Schedule> getScheduleList();
 
-    Schedule getByStudioidAndPlayidAndTime(String studioId, String playId, Long time);
+    Schedule getByStudioidAndPlayidAndTime(@Param("studioId") String studioId,
+                                           @Param("playId") String playId,
+                                           @Param("time") Long time);
 }

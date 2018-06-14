@@ -7,14 +7,14 @@
     <resultMap id="TicketType" type="Ticket">
         <!--       bean的属性名         数据库中的列名-->
         <result property="unionId" column="ticket_id"/>
-        <result property="seatId" column="seata_id"/>
+        <result property="seatId" column="seat_id"/>
         <result property="scheduleId" column="schedule_id"/>
         <result property="price" column="ticket_price"/>
         <result property="status" column="ticket_status"/>
     </resultMap>
 
     <sql id="mappingColumns">
-        seata_id, schedule_id,
+        seat_id, schedule_id,
         ticket_price,ticket_status
     </sql>
 
