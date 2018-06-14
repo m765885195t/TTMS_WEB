@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
@@ -21,7 +21,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--默认拦截的连接-->
+            <mvc:mapping path="/*"/>
+            <bean class="cn.motian.Interceptor.Interceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!-- 4.扫描webcontroller相关的bean -->
     <context:component-scan base-package="cn.motian.controller"/>
 </beans>

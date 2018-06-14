@@ -11,7 +11,17 @@ public interface TTMSConst {
     class TTMS_RESULT_STATUS { // 返回结果状态集
         public static final String SUCCEED = "succeed";
         public static final String FAIL = "fail";
+    }
 
+    enum TTMS_USER_IDENTITY { //用户身份
+        ADMINISTRATOR(1),
+        MANAGER(2),
+        CONDUCTOR(3);
+        int index;
+
+        TTMS_USER_IDENTITY(int index) {
+            this.index = index;
+        }
     }
 
     enum TTMS_PLAY_TYPE { // 剧目类型
