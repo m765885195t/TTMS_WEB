@@ -82,3 +82,5 @@ create table ticket (
   ticket_status int,
   primary key (ticket_id)
 );
+INSERT into user (user_name, user_pass, user_identity,user_update_time, user_create_time)
+VALUES ("root", "root", "1",now(),now())

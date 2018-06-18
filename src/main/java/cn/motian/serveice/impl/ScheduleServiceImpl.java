@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static cn.motian.constant.TTMSConst.TTMS_SCHEDULE_STATUS.NOTSHOW;
+import static cn.motian.constant.TTMSConst.TTMS_SCHEDULE_STATUS.SHOW;
 import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.DAMAGE;
 import static cn.motian.constant.TTMSConst.TTMS_SEAT_STATUS.USE;
 import static cn.motian.constant.TTMSConst.TTMS_TICKET_STATUS.NOEXIT;
@@ -80,9 +82,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public boolean updateSchedule(Schedule schedule) {
-        if (schedule.getStatus() != null) {
-            schedule.setStatus(String.valueOf(TTMSConst.TTMS_SCHEDULE_STATUS.valueOf(schedule.getStatus())));
-        }
+        schedule.setStatus(String.valueOf(TTMSConst.TTMS_SCHEDULE_STATUS.valueOf(schedule.getStatus()).getIndex()));
         return scheduleMapper.update(schedule);
     }
 
@@ -95,6 +95,11 @@ public class ScheduleServiceImpl implements ScheduleService {
                     .forEach(o -> {
                         o.setPlayId(playService.getByUnionId(o.getPlayId()).getName());
                         o.setStudioId(studioService.getByUnionId(o.getStudioId()).getName());
+                        if (SHOW.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(SHOW));
+                        } else if (NOTSHOW.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(NOTSHOW));
+                        }
                     });
         }
         return schedules;

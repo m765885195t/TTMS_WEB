@@ -31,13 +31,13 @@
         <if test="playId!=null">play_id=#{playId},</if>
         <if test="time!=null">schedule_time =#{time},</if>
         <if test="price!=null">schedule_price=#{price},</if>
-        <if test="status!=null">schedule_status=#{status},</if>
+        <if test="status!=null">schedule_status=#{status}</if>
         WHERE schedule_id = #{unionId}
     </update>
 
     <select id="getByUnionId" resultMap="ScheduleType">
         SELECT
-        studio_id,
+        schedule_id,
         <include refid="mappingColumns"/>
         FROM schedule
         WHERE schedule_id = #{unionId}

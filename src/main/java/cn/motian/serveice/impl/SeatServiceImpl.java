@@ -31,7 +31,7 @@ public class SeatServiceImpl implements SeatService {
 
     public boolean updateSeat(Seat seat) {
         if (seat.getStatus() != null) {
-            seat.setStatus(String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf(seat.getStatus()).ordinal()));
+            seat.setStatus(String.valueOf(TTMSConst.TTMS_SEAT_STATUS.valueOf(seat.getStatus()).getIndex()));
         }
         return seatMapper.update(seat);
     }
@@ -43,7 +43,19 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public List<Seat> getSeatByStudioName(String studioName) {
-        return seatMapper.getSeatByStudioId(studioService.getByName(studioName).getUnionId());
+        List<Seat> seatList = seatMapper.getSeatByStudioId(studioService.getByName(studioName).getUnionId());
+        if (seatList.size() > 0) {
+            System.out.println(seatList.get(0).toString());
+            seatList.stream()
+                    .forEach(o -> {
+                        if (USE.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(USE));
+                        } else if (DAMAGE.getIndex() == Integer.valueOf(o.getStatus())) {
+                            o.setStatus(String.valueOf(DAMAGE));
+                        }
+                    });
+        }
+        return seatList;
     }
 
     @Override
@@ -62,7 +74,7 @@ public class SeatServiceImpl implements SeatService {
                             o.setStatus(String.valueOf(USE));
                         } else if (DAMAGE.getIndex() == Integer.valueOf(o.getStatus())) {
                             o.setStatus(String.valueOf(DAMAGE));
-
+                            System.out.println(String.valueOf(DAMAGE)+"assa");
                         }
                     });
         }

@@ -25,7 +25,7 @@
     <update id="update" parameterType="Seat">
         UPDATE seat
         SET
-        <if test="status!=null">seat_status=#{status},</if>
+        <if test="status!=null">seat_status=#{status}</if>
         WHERE seat_id = #{unionId}
     </update>
 
