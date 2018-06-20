@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -32,5 +33,15 @@ public class TicketController {
         return rs;
     }
 
+    @RequestMapping(params = "method=getByScheduleId", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getByScheduleId(
+            @RequestParam String scheduleId
+    ) {
+        Map<String, Object> rs = new HashMap<>();
+        List<Ticket> ticket = ticketService.getByScheduleId(scheduleId);
+        rs.put("ticket", ticket);
+        return rs;
+    }
 
 }
